@@ -23,27 +23,37 @@ let HexagonalButton = React.createClass({
     return {
       backgroundColor: 'orange',
       borderColor: 'white',
+      size: 100,
     }
   },
 
   propTypes: {
     backgroundColor: PropTypes.string,
     borderColor: PropTypes.string,
+    size: PropTypes.number,
+    borderWidth: PropTypes.number,
   },
 
   render() {
-    let hexagon = "M34.9548811,0 L0,38.1940124 L14.7793777,87.6720289 L65.2399734,100 L100,61.3957845 L84.6138857,11.2703307 L34.9548811,0 Z"
+    let hexagon = "M34.9548811,0 L0,38.1940124 L14.7793777,87.6720289 L65.2399734,100 L100,61.3957845 L84.6138857,11.2703307 L34.9548811,0 Z";
+    let shadow = "M34.9548811,0 L0,38.1940124 L14.7793777,87.6720289 L65.2399734,100 L100,61.3957845 L84.6138857,11.2703307 L34.9548811,0 Z";
     let { backgroundColor, borderColor, size, borderWidth, } = this.props;
-
-
     let scale = (size - borderWidth * 2)  / 100.0;
-    var groupOffset = (borderWidth);
-    var transform = new Transform().scale(scale);
+    let transform = new Transform().scale(scale);
 
     return (
       <View style={{width: size, height: size, backgroundColor: 'transparent'}}>
         <Surface width={size} height={size}>
-          <Group x={groupOffset} y={groupOffset}>
+          <Group x={borderWidth - (borderWidth * scale * 0.22)} y={borderWidth + (borderWidth * scale * 0.22)}>
+            <Shape d={shadow}
+                   strokeCap="square"
+                   strokeJoin="miter"
+                   strokeWidth={borderWidth}
+                   stroke="#000"
+                   opacity={0.2}
+                   transform={transform} />
+          </Group>
+          <Group x={borderWidth} y={borderWidth}>
             <Shape d={hexagon}
                    strokeCap="square"
                    strokeJoin="miter"
@@ -88,7 +98,7 @@ let styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: 'green',
   },
 });
 
