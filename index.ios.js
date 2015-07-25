@@ -24,6 +24,7 @@ let HexagonalButton = React.createClass({
       backgroundColor: 'orange',
       borderColor: 'white',
       size: 100,
+      borderWidth: 2,
     }
   },
 
