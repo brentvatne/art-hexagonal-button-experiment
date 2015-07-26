@@ -13,6 +13,7 @@ let {
   Animated,
   Easing,
   PropTypes,
+  TouchableOpacity,
 } = React;
 
 let ReactART = require('ReactNativeART');
@@ -29,6 +30,7 @@ let HexagonalButton = React.createClass({
   },
 
   propTypes: {
+    onPress: PropTypes.func,
     backgroundColor: PropTypes.string,
     borderColor: PropTypes.string,
     size: PropTypes.number,
@@ -43,36 +45,38 @@ let HexagonalButton = React.createClass({
     let transform = new Transform().scale(scale);
 
     return (
-      <View style={{width: size, height: size, backgroundColor: 'transparent'}}>
-        <Surface width={size} height={size}>
-          <Group x={borderWidth - (borderWidth * scale * 0.22)} y={borderWidth + (borderWidth * scale * 0.22)}>
-            <Shape d={shadow}
-                   strokeCap="square"
-                   strokeJoin="miter"
-                   strokeWidth={borderWidth}
-                   stroke="#000"
-                   opacity={0.2}
-                   transform={transform} />
-          </Group>
-          <Group x={borderWidth} y={borderWidth}>
-            <Shape d={hexagon}
-                   strokeCap="square"
-                   strokeJoin="miter"
-                   strokeWidth={borderWidth}
-                   stroke={borderColor}
-                   fill={backgroundColor}
-                   transform={transform} />
-          </Group>
-        </Surface>
+      <TouchableOpacity onPress={this.props.onPress} activeOpacity={0.8}>
+        <View style={{width: size, height: size, backgroundColor: 'transparent'}}>
+          <Surface width={size} height={size}>
+            <Group x={borderWidth - (borderWidth * scale * 0.22)} y={borderWidth + (borderWidth * scale * 0.22)}>
+              <Shape d={shadow}
+                     strokeCap="square"
+                     strokeJoin="miter"
+                     strokeWidth={borderWidth}
+                     stroke="#000"
+                     opacity={0.2}
+                     transform={transform} />
+            </Group>
+            <Group x={borderWidth} y={borderWidth}>
+              <Shape d={hexagon}
+                     strokeCap="square"
+                     strokeJoin="miter"
+                     strokeWidth={borderWidth}
+                     stroke={borderColor}
+                     fill={backgroundColor}
+                     transform={transform} />
+            </Group>
+          </Surface>
 
-        <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, }}>
-          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Text style={{alignSelf: 'center', textAlign: 'center',}}>
-              Hi Michael!
-            </Text>
+          <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,}}>
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+              <Text>
+                Hi Michael!
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 
